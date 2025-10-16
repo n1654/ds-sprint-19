@@ -5,8 +5,7 @@ from data_preprocessor import DataPreprocessor
 
 class ModelPredictor:
     def __init__(self, model_repo, model_name: str):
-        self.model = self.load_model(model_repo, model_name)
-
+        self.model             = self.load_model(model_repo, model_name)
         self.data_preprocessor = DataPreprocessor()
 
     def load_model(self, model_repo, model_name: str):
@@ -19,4 +18,8 @@ class ModelPredictor:
     def preprocess_data(self, file) -> pd.DataFrame:
         df = self.data_preprocessor.preprocess(file)
         return df
+
+    # def transform(self, data: pd.DataFrame) -> pd.DataFrame:
+    #     data_transformed = self.model.named_steps['preprocessor'].transform(data)
+    #     return data_transformed
 

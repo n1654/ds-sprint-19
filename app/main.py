@@ -11,6 +11,7 @@ logger = logging.getLogger(__name__)
 
 model_repo = os.getenv("MODEL_REPO")
 model_name = os.getenv("MODEL_NAME")
+
 prediction_service = PredictionService(model_repo, model_name)
 
 app = FastAPI()
@@ -22,12 +23,10 @@ async def predict(file: UploadFile = File(...)):
         csv_data       = StringIO(contents.decode("utf-8"))
         processed_data = prediction_service.predictor.preprocess_data(csv_data)
         predictions    = prediction_service.get_predictions(processed_data)
-        logger.info("Предсказания выполнены успешно для файла: %s", file.filename)
         return {"predictions": predictions}
     except Exception as e:
-        logger.error("Ошибка при обработке файла %s: %s", file.filename, str(e))
+        logger.error(f"Ошибка при обработке файла {file.filename}: {str(e)}")
         raise HTTPException(status_code=400, detail=f"Ошибка при обработке файла: {str(e)}")
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
-
