@@ -35,4 +35,13 @@ sudo chmod +x ./test.sh
 
 ```sh
 [{"id":7746,"prediction":0},{"id":4202,"prediction":0},{"id":6632,"prediction":1},{"id":4639,"prediction":0}]
+--------------------------------
+     time_namelookup:  0.000016s
+        time_connect:  0.000097s
+     time_appconnect:  0.000000s
+    time_pretransfer:  0.000120s
+       time_redirect:  0.000000s
+  time_starttransfer:  0.011365s
+                     ----------
+          time_total:  0.011379s
 ```
