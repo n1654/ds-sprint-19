@@ -1,9 +1,12 @@
 import os
+from json import loads, dumps
+import pandas as pd
 import logging
 import uvicorn
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from io import StringIO
 from service import PredictionService
+
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
@@ -19,11 +22,15 @@ app = FastAPI()
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
     try:
-        contents       = await file.read()
-        csv_data       = StringIO(contents.decode("utf-8"))
-        processed_data = prediction_service.predictor.preprocess_data(csv_data)
-        predictions    = prediction_service.get_predictions(processed_data)
-        return {"predictions": predictions}
+        contents            = await file.read()
+        csv_data            = StringIO(contents.decode("utf-8"))
+        processed_data, ids = prediction_service.predictor.preprocess_data(csv_data)
+        predictions         = prediction_service.get_predictions(processed_data)
+        results             = pd.DataFrame({
+            'id': ids,
+            'prediction': predictions
+        })
+        return results.to_dict(orient='records')
     except Exception as e:
         logger.error(f"Ошибка при обработке файла {file.filename}: {str(e)}")
         raise HTTPException(status_code=400, detail=f"Ошибка при обработке файла: {str(e)}")

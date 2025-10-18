@@ -8,14 +8,15 @@ logger = logging.getLogger(__name__)
 
 class DataPreprocessor:
 
-    def preprocess(self, file) -> pd.DataFrame:
-        df = self.read_csv(file)
-        df = self.make_columns_snake_case(df)
+    def preprocess(self, file) -> tuple:
+        df  = self.read_csv(file)
+        df  = self.make_columns_snake_case(df)
+        ids = self.get_ids(df)
         logger.info(f"Найденны признаки: {df.columns.tolist()}")
         if not self.check_required_features(df):
             logger.info(f"Необходимые признаки не найдены: {FEATURES}")
         df = self.remove_extra_columns(df)
-        return df
+        return df, ids
 
     def read_csv(self, file) -> pd.DataFrame:
         return pd.read_csv(file)
@@ -31,6 +32,9 @@ class DataPreprocessor:
     def check_required_features(self, df: pd.DataFrame) -> bool:
         return set(set(FEATURES)).issubset(df.columns.tolist())
 
+    def get_ids(self, df) -> pd.Series:
+        ids = df['id']
+        return ids
 
     def remove_extra_columns(self, df: pd.DataFrame) -> pd.DataFrame:
         columns_to_remove = list(set(df.columns.tolist()) - set(FEATURES))

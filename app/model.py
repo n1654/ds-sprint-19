@@ -16,8 +16,12 @@ class ModelPredictor:
         return self.model.predict(data).tolist()
 
     def preprocess_data(self, file) -> pd.DataFrame:
-        df = self.data_preprocessor.preprocess(file)
-        return df
+        df, ids = self.data_preprocessor.preprocess(file)
+        return df, ids
+
+    # def get_ids(self, file) -> pd.Series:
+    #     ids = self.data_preprocessor.get_ids(file)
+    #     return ids
 
     # def transform(self, data: pd.DataFrame) -> pd.DataFrame:
     #     data_transformed = self.model.named_steps['preprocessor'].transform(data)

@@ -1,14 +1,17 @@
 # Data Science Sprint 19
 ## Healthcare project
 
+### Предсказания на тестовых данных
 
-Запуск приложения
+ - [predictions.csv](./predictions.csv)
+
+### Запуск приложения
 
 ```sh
 sudo docker compose up -d --build
 ```
 
-Тестовы запрос
+### Тестовый запрос
 
 ```sh
 cd ./test/
@@ -16,8 +19,8 @@ sudo chmod +x ./test.sh
 ./test.sh
 ```
 
-Пример ответа
+### Пример ответа
 
 ```sh
-{"predictions":[{"prediction":0},{"prediction":0},{"prediction":1},{"prediction":0}]}
+[{"id":7746,"prediction":0},{"id":4202,"prediction":0},{"id":6632,"prediction":1},{"id":4639,"prediction":0}]
 ```
