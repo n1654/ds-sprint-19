@@ -1,6 +1,18 @@
 # Data Science Sprint 19
 ## Healthcare project
 
+### Системные требования
+
+ - Ubuntu 24.04.3 LTS, 6.14.0-33-generic
+ - Python 3.12.3
+ - Docker version 28.5.1, build e180ab8
+ - Docker Compose version v2.40.0
+ - scikit-learn 1.7.2
+
+### Исследования и обучение модели
+
+ - [jupyter notebook](./jupyter-notebook/sprint_19_project_healtcare.ipynb)
+
 ### Предсказания на тестовых данных
 
  - [predictions.csv](./predictions.csv)
