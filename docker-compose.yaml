@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  api_app:
+    build: .
+    container_name: healthcare_predict_app
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - MODEL_NAME=model_healthcare_v1.pkl
+      - MODEL_REPO=n1654/ds-sprint-19-healthcare-project
+    volumes:
+      - ./app:/healthcare/app
+
